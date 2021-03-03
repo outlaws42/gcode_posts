@@ -1,0 +1,15 @@
+__pycache__/*
+lib/__pycache__/*
+lib/__pycache__/
+__pycache__/
+*.log
+*.db
+*.sql
+*.geany
+env
+temp.txt
+.idea/
+idea/*
+lib/test.
+.vscode
+
