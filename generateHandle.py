@@ -4,7 +4,7 @@
 # Auto Generate G-Code for milling a handle slot (grbl 1.1 control)
 # Programmer: Troy Franks
 # Email: outlaws42@gmail.com
-version = '2021-03-01'
+version = '2021-03-08'
 
 # Requires tmod library. This is a collection of my functions, it will be included with this script
 # All other imports are standard with python 3.
@@ -27,7 +27,7 @@ rFeed = 15. # Feedrate for radius moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
 thickness = .500 # Part thickess
 status = 'Proven' # Proven or Unproven
-outputFile = f"handle{status}.gcode"
+outputFile = f"handleFeed{feed}-{handleLength}X{handleWidth}-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF HANDLE'
@@ -103,6 +103,24 @@ def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness):
   codeOutput = ''.join(codePass)
   return codeOutput
 
+def final_pass(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness):
+  r_move = ((handleWidth/2) - (tool_dia/2))
+  y_move = ((handleWidth/2)-(tool_dia/2))
+  x_move = ((handleLength/2)-r_move-(tool_dia/2))
+  output = (
+      f"\n(FINAL PASS)\n"
+      f"G01 G90 X0 Y{y_move} F{feed}\n"
+      f"G01 Z-{thickness} F{zFeed}\n"
+      f"G01 X-{x_move} F{feed}\n"
+      f"G03 X-{x_move+r_move} Y0 R{r_move} F{rFeed}\n"
+      f"G03 X-{x_move} Y-{y_move} R{r_move} F{rFeed}\n"
+      f"G01 X{x_move} F{feed}\n"
+      f"G03 X{x_move+r_move} Y0 R{r_move} F{rFeed}\n"
+      f"G03 X{x_move} Y{y_move} R{r_move} F{rFeed}\n"
+      f"G01 X0 F{feed}\n"
+    )
+  return output
+
 def end():
   output = (
     f"G28 G91 Z0\n"
@@ -117,6 +135,7 @@ setHeader = header(x_zero,y_zero,z_zero,material,tool,status)
 setInitialization = initialization()
 setStart = start()
 setOperation = operation(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness)
+set_final = final_pass(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness)
 setEnd = end()
-programCNC = [setHeader, setInitialization, setStart, setOperation, setEnd]
+programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
 tmod.save_file_list(outputFile,programCNC,'relative')
