@@ -22,9 +22,10 @@ from datetime import datetime
 handleLength = 4.0 # X dimension of the cut area of the table in inches
 handleWidth = 1.5 # Y dimension of the cut area of the table in inches
 tool_dia = .250 # Diameter of the tool in inches
-feed = 60. # Feedrate for horizontal moves in inches/min
-rFeed = 15. # Feedrate for radius moves in inches/min
+feed = 70. # Feedrate for horizontal moves in inches/min
+rFeed = 50. # Feedrate for radius moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
+zDepth = .03
 thickness = .500 # Part thickess
 status = 'Proven' # Proven or Unproven
 outputFile = f"handleFeed{feed}-{handleLength}X{handleWidth}-{status}.gcode"
@@ -74,7 +75,7 @@ def start():
   )
   return output
 
-def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness):
+def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness,zDepth):
   r_move = ((handleWidth/2) - (tool_dia/2))
   y_move = ((handleWidth/2)-(tool_dia/2))
   x_move = ((handleLength/2)-r_move-(tool_dia/2))
@@ -96,7 +97,7 @@ def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness):
       f"G03 X{x_move} Y{y_move} R{r_move} F{rFeed}\n"
       f"G01 X0 F{feed}\n"
     )
-    zStep += .015
+    zStep += zDepth
     zPos = '%.3f' % round(zStep, 3) # Round to 3 decimal places
     passes += 1
     codePass.append(output)
@@ -134,7 +135,7 @@ def end():
 setHeader = header(x_zero,y_zero,z_zero,material,tool,status)
 setInitialization = initialization()
 setStart = start()
-setOperation = operation(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness)
+setOperation = operation(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness,zDepth)
 set_final = final_pass(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
