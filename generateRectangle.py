@@ -10,7 +10,7 @@ version = '2021-03-22'
 # All other imports are standard with python 3.
 
 # User script imports
-import tmod
+from tmod import save_file_list
 
 # python built in imports
 import sys
@@ -133,4 +133,4 @@ setOperation = operation(width,length,tool_dia,feed, zFeed,thickness,zDepth)
 set_final = final_pass(width,length,tool_dia,feed, zFeed,thickness)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
-tmod.save_file_list(outputFile,programCNC,'relative')
+save_file_list(outputFile,programCNC,'relative')

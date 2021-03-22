@@ -3,14 +3,14 @@
 # -*- coding: utf-8 -*-
 # Auto Generate G-Code for milling a handle slot (grbl 1.1 control)
 # Programmer: Troy Franks
-# Email: outlaws42@gmail.com
-version = '2021-03-08'
+# Email: outlaws42@tutanota.com
+version = '2021-03-22'
 
 # Requires tmod library. This is a collection of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
-import tmod
+from tmod import save_file_list
 
 # python built in imports
 import sys
@@ -76,9 +76,9 @@ def start():
   return output
 
 def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness,zDepth):
-  r_move = ((handleWidth/2) - (tool_dia/2))
-  y_move = ((handleWidth/2)-(tool_dia/2))
-  x_move = ((handleLength/2)-r_move-(tool_dia/2))
+  r_move = round(((handleWidth/2) - (tool_dia/2)),3)
+  y_move = round(((handleWidth/2)-(tool_dia/2)),3)
+  x_move = round(((handleLength/2)-r_move-(tool_dia/2)),3)
   zStep = 0
   zPos = zStep
   partThickness = thickness + .001
@@ -105,9 +105,9 @@ def operation(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness,zDe
   return codeOutput
 
 def final_pass(handleWidth,handleLength,tool_dia,feed,zFeed, rFeed, thickness):
-  r_move = ((handleWidth/2) - (tool_dia/2))
-  y_move = ((handleWidth/2)-(tool_dia/2))
-  x_move = ((handleLength/2)-r_move-(tool_dia/2))
+  r_move = round(((handleWidth/2) - (tool_dia/2)),3)
+  y_move = round(((handleWidth/2)-(tool_dia/2)),3)
+  x_move = round(((handleLength/2)-r_move-(tool_dia/2)),3)
   output = (
       f"\n(FINAL PASS)\n"
       f"G01 G90 X0 Y{y_move} F{feed}\n"
@@ -139,4 +139,4 @@ setOperation = operation(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,th
 set_final = final_pass(handleWidth,handleLength,tool_dia,feed, zFeed, rFeed,thickness)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
-tmod.save_file_list(outputFile,programCNC,'relative')
+save_file_list(outputFile,programCNC,'relative')

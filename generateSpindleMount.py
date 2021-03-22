@@ -3,14 +3,14 @@
 # -*- coding: utf-8 -*-
 # Auto Generate G-Code for milling T-Track (grbl 1.1 control)
 # Programmer: Troy Franks
-# Email: outlaws42@gmail.com
-version = '2020-06-20'
+# Email: outlaws42@tutanota.com
+version = '2021-03-22'
 
 # Requires tmod library. This is a collection of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
-import tmod
+from tmod import save_file_list
 
 # python built in imports
 import sys
@@ -212,4 +212,4 @@ setStart = start()
 setOperation = operation(mntHoleCntrX,dstnceY,smHoleCntrX,smHoleFrmCntrY,sm_HoleDia,mntHoleDia,toolDia,zFeed,rFeed,feed,thickness)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, setEnd]
-tmod.save_file_list(outputFile,programCNC,'relative')
+save_file_list(outputFile,programCNC,'relative')

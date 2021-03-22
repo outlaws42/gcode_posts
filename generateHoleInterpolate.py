@@ -10,7 +10,7 @@ version = '2021-03-22'
 # All other imports are standard with python 3.
 
 # User script imports
-import tmod
+from tmod import save_file_list
 
 # python built in imports
 import sys
@@ -123,4 +123,4 @@ setStart = start()
 setOperation = operation(HoleDia,toolDia,feed,zFeed,rFeed,depth)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, setEnd]
-tmod.save_file_list(outputFile,programCNC,'relative')
+save_file_list(outputFile,programCNC,'relative')

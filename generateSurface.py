@@ -3,14 +3,14 @@
 # -*- coding: utf-8 -*-
 # Auto Generate G-Code for surfacing table (grbl 1.1 control)
 # Programmer: Troy Franks
-# Email: outlaws42@gmail.com
+# Email: outlaws42@tutanota.com
 version = '2020-05-07'
 
 # Requires tmod library. This is a collection of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
-import tmod
+from tmod import save_file_list
 
 # python built in imports
 import sys
@@ -98,4 +98,4 @@ tableParameter = parameter(table_y,table_x,tool_dia,feedrate,stepover)
 surfaceRest = surface(table_y,table_x,tool_dia,feedrate,stepover)
 endCode = "G28 G91 Z0\nG0 G90 X0 Y0\nM2\nM30\n%"
 programCNC = [setCodes,tableParameter,surfaceRest,endCode]
-tmod.save_file_list(outputFile,programCNC,'relative')
+save_file_list(outputFile,programCNC,'relative')
