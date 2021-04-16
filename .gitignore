@@ -12,5 +12,5 @@ temp.txt
 idea/*
 lib/test.
 .vscode
-
+*.gcode
 
