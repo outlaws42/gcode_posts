@@ -1,12 +1,19 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling holes for L zero corner bump stop (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-03-22'
+"""
+Description:
+  Auto Generate G-Code for milling a hole for 
+  L zero corner bump stop 
+  This is for tool the same size as the hole(grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+version = '2021-04-17'
+
+# Requires tmod library. This is a collection 
+# of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
@@ -23,7 +30,7 @@ toolDia = .250 # Diameter of the tool in inches
 feed = 60. # Feedrate for horizontal moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
 depth = .620 # Depth of cut
-status = 'Unproven' # Proven or Unproven
+status = 'Proven' # Proven or Unproven
 outputFile = f"Hole-Feed{feed}-{depth}-{status}.gcode"
 
 # Header information description

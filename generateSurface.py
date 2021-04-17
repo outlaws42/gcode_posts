@@ -1,12 +1,16 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for surfacing table (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2020-05-07'
+"""
+Description:
+  Auto Generate G-Code for surfacing table (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-22'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+# Requires tmod library. This is a collection 
+# of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports

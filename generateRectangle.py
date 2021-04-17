@@ -1,12 +1,17 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling a rectangle slot (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-03-22'
+"""
+Description:
+  Auto Generate G-Code for milling a 
+  rectangle slot (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-17'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+# Requires tmod library. This is a collection of 
+# my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
@@ -18,14 +23,14 @@ import os
 from datetime import datetime
 
 # Variable set information
-# Cut information
-length = 1.3 # X dimension of the cut area of the table in inches
-width = .900 # Y dimension of the cut area of the table in inches
+# Cut information all dimensions are inch
+length = 1.3 # Length of the rectangle in the X direction
+width = .900 # Height of the rectangle in the Y direction
 tool_dia = .250 # Diameter of the tool in inches
 feed = 70. # Feedrate for horizontal moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
 zDepth = .03 # Step down for each pass
-thickness = .330 # Part thickess
+depth = .330 # Depth of rectangle slot
 status = 'Unproven' # Proven or Unproven
 outputFile = f"Rectangle-Feed{feed}-{length}X{width}-{status}.gcode"
 
@@ -74,16 +79,16 @@ def start():
   )
   return output
 
-def operation(width,length,tool_dia,feed,zFeed,thickness,zDepth):
+def operation(width,length,tool_dia,feed,zFeed,depth,zDepth):
   r_move = round(((width/2) - (tool_dia/2)),3)
   y_move = round(((width/2)-(tool_dia/2)),3)
   x_move = round(((length/2)-(tool_dia/2)),3)
   zStep = 0
   zPos = zStep
-  partThickness = thickness + .001
+  partdepth = depth + .001
   passes = 1
   codePass = []
-  while zStep <= partThickness:
+  while zStep <= partdepth:
     output = (
       f"\n(PASSES {passes})\n"
       f"G01 G90 X0 Y{y_move} F{feed}\n"
@@ -101,13 +106,13 @@ def operation(width,length,tool_dia,feed,zFeed,thickness,zDepth):
   codeOutput = ''.join(codePass)
   return codeOutput
 
-def final_pass(width,length,tool_dia,feed,zFeed, thickness):
+def final_pass(width,length,tool_dia,feed,zFeed, depth):
   y_move = round(((width/2)-(tool_dia/2)),3)
   x_move = round(((length/2)-(tool_dia/2)),3)
   output = (
       f"\n(FINAL PASS)\n"
       f"G01 G90 X0 Y{y_move} F{feed}\n"
-      f"G01 Z-{thickness} F{zFeed}\n"
+      f"G01 Z-{depth} F{zFeed}\n"
       f"G01 X-{x_move} F{feed}\n"
       f"G01 Y-{y_move} F{feed}\n"
       f"G01 X{x_move} F{feed}\n"
@@ -129,8 +134,8 @@ def end():
 setHeader = header(x_zero,y_zero,z_zero,material,tool,status)
 setInitialization = initialization()
 setStart = start()
-setOperation = operation(width,length,tool_dia,feed, zFeed,thickness,zDepth)
-set_final = final_pass(width,length,tool_dia,feed, zFeed,thickness)
+setOperation = operation(width,length,tool_dia,feed, zFeed,depth,zDepth)
+set_final = final_pass(width,length,tool_dia,feed, zFeed,depth)
 setEnd = end()
 programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
 save_file_list(outputFile,programCNC,'relative')

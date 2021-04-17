@@ -1,12 +1,17 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling holes for L zero corner bump stop (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-04-14'
+"""
+Description:
+  Auto Generate G-Code for Interpulate holes for 
+  L zero corner bump stop (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-17'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+# Requires tmod library. This is a collection 
+# of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
@@ -18,15 +23,15 @@ import os
 from datetime import datetime
 
 # Variable set information
-# Cut information
-HoleDia = 6.0
+# Cut information all dimensions are in inch
+HoleDia = .375 # Diameter of the hole
 toolDia = .250 # Diameter of the tool in inches
 rFeed = 15. # Feedrate for radius moves in inches/min
 feed = 60. # Feedrate for horizontal moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
 depth = .750 # Depth of cut
 thickness = .75 # Material Thickness
-status = 'Unproven' # Proven or Unproven
+status = 'Proven' # Proven or Unproven
 outputFile = f"Hole-Feed{feed}-{HoleDia}X{depth}-{status}.gcode"
 
 # Header information description
@@ -101,6 +106,20 @@ def operation(holeDia,toolDia,feed,zFeed,rFeed,holeDepth):
   codeOutput = ''.join(codePass)
   return codeOutput
 
+def final_pass(holeDia,toolDia,feed,zFeed, rFeed, holeDepth):
+  y_move = '%.3f' % round(((holeDia/2)-(toolDia/2)), 3)
+  x_move = '%.3f' % round(((holeDia/2)-(toolDia/2)), 3)
+  r_move = '%.3f' % round(((holeDia/2)-(toolDia/2)), 3)
+  output = (
+      f"\n(FINAL PASS)\n"
+      f"G01 G90 X0 Y{y_move} F{feed}\n"
+      f"G01 Z-{holeDepth} F{zFeed}\n"
+      f"G03 X-{x_move} Y0 R{r_move} F{rFeed}\n"
+      f"G03 X0 Y-{y_move} R{r_move} F{rFeed}\n"
+      f"G03 X{x_move} Y0 R{r_move} F{rFeed}\n"
+      f"G03 X0 Y{y_move} R{r_move} F{rFeed}\n"
+    )
+  return output
 
 def end():
   output = (
@@ -116,6 +135,7 @@ setHeader = header(x_zero,y_zero,z_zero,material,tool,status)
 setInitialization = initialization()
 setStart = start()
 setOperation = operation(HoleDia,toolDia,feed,zFeed,rFeed,depth)
+set_final = final_pass(HoleDia,toolDia,feed, zFeed, rFeed,depth)
 setEnd = end()
-programCNC = [setHeader, setInitialization, setStart, setOperation, setEnd]
+programCNC = [setHeader, setInitialization, setStart, setOperation, set_final, setEnd]
 save_file_list(outputFile,programCNC,'relative')

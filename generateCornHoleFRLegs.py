@@ -1,12 +1,19 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling a handle slot (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-04-16'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+""" 
+Description:
+  Auto Generate G-Code for milling a 
+  outside full radius for corn hole legs
+  this could be used for any outside full radius (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-17'
+
+# Requires tmod library. This is a collection of my functions, 
+# it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
@@ -20,15 +27,15 @@ from datetime import datetime
 # Variable set information
 # Cut information
 
-materialWidth = 3.5 # Y dimension of the cut area of the table in inches
-radius = materialWidth/2 # X dimension of the cut area of the table in inches
+materialWidth = 3.5 # Width of the part
+radius = materialWidth/2 # radius of the part
 tool_dia = .250 # Diameter of the tool in inches
 feed = 70. # Feedrate for horizontal moves in inches/min
 rFeed = 50. # Feedrate for radius moves in inches/min
-zFeed = 5. # Feedrate for z moves in inches/min
-zDepth = .03 # Step down for each pass
+zFeed = 20. # Feedrate for z moves in inches/min
+zDepth = .05 # Step down for each pass
 thickness = .750 # Part thickess
-status = 'Unproven' # Proven or Unproven
+status = 'Proven' # Proven or Unproven
 outputFile = f"CH_RADIUS-Feed{feed}-{radius}X{materialWidth}-{status}.gcode"
 
 # Header information description
@@ -92,8 +99,8 @@ def operation(materialWidth,tool_dia,feed,zFeed, rFeed, thickness,zDepth):
       f"G01 G90 X0 Y-{y_move + .100} F{feed}\n"
       f"G01 Z-{zPos} F{zFeed}\n"
       f"G01 Y-{y_move} F{feed}\n"
-      f"G03 X-{x_move} Y0 R{r_move} F{rFeed}\n"
-      f"G03 X0 Y{y_move} R{r_move} F{rFeed}\n"
+      f"G02 X-{x_move} Y0 R{r_move} F{rFeed}\n"
+      f"G02 X0 Y{y_move} R{r_move} F{rFeed}\n"
       f"G01 Y{y_move + .10} F{feed}\n"
       f"G01 Z{z_clear} F{zFeed}\n"
     )
@@ -114,8 +121,8 @@ def final_pass(materialWidth,tool_dia,feed,zFeed, rFeed, thickness):
       f"G01 G90 X0 Y-{y_move + .100} F{feed}\n"
       f"G01 Z-{thickness} F{zFeed}\n"
       f"G01 Y-{y_move} F{feed}\n"
-      f"G03 X-{x_move} Y0 R{r_move} F{rFeed}\n"
-      f"G03 X0 Y{y_move} R{r_move} F{rFeed}\n"
+      f"G02 X-{x_move} Y0 R{r_move} F{rFeed}\n"
+      f"G02 X0 Y{y_move} R{r_move} F{rFeed}\n"
       f"G01 Y{y_move + .10} F{feed}\n"
       f"G01 Z{z_clear} F{zFeed}\n"
     )

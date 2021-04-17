@@ -1,12 +1,17 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling T-Track (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-03-22'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+"""
+Description:
+  Auto Generate G-Code for milling the spindle mount (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-17'
+
+# Requires tmod library. This is a collection of 
+# my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports

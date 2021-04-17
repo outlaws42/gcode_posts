@@ -1,12 +1,17 @@
 #! /usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-# Auto Generate G-Code for milling a handle slot (grbl 1.1 control)
-# Programmer: Troy Franks
-# Email: outlaws42@tutanota.com
-version = '2021-03-22'
+"""
+Description:
+  Auto Generate G-Code for milling a handle 
+  slot (grbl 1.1 control)
+Programmer: Troy Franks
+Email: outlaws42@tutanota.com
+"""
+version = '2021-04-17'
 
-# Requires tmod library. This is a collection of my functions, it will be included with this script
+# Requires tmod library. This is a collection 
+# of my functions, it will be included with this script
 # All other imports are standard with python 3.
 
 # User script imports
@@ -18,9 +23,9 @@ import os
 from datetime import datetime
 
 # Variable set information
-# Cut information
-handleLength = 4.0 # X dimension of the cut area of the table in inches
-handleWidth = 1.5 # Y dimension of the cut area of the table in inches
+# Cut information all dimensions are inch
+handleLength = 4.0 # Length of the handle in (X direction)
+handleWidth = 1.5 # Height of the handle in (Y direction)
 tool_dia = .250 # Diameter of the tool in inches
 feed = 70. # Feedrate for horizontal moves in inches/min
 rFeed = 50. # Feedrate for radius moves in inches/min
