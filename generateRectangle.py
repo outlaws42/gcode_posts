@@ -32,7 +32,7 @@ zFeed = 5. # Feedrate for z moves in inches/min
 zDepth = .03 # Step down for each pass
 depth = .330 # Depth of rectangle slot
 status = 'Unproven' # Proven or Unproven
-outputFile = f"Rectangle-Feed{feed}-{length}X{width}-{status}.gcode"
+outputFile = f"Rectangle-Feed{feed}-{length}LX{width}W-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF RECTANGLE'

@@ -31,7 +31,7 @@ feed = 60. # Feedrate for horizontal moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
 depth = .620 # Depth of cut
 status = 'Proven' # Proven or Unproven
-outputFile = f"Hole-Feed{feed}-{depth}-{status}.gcode"
+outputFile = f"Hole-Feed{feed}-{depth}Dpth-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF HOLE'

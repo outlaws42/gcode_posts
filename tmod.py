@@ -15,14 +15,18 @@ def get_resource_path(rel_path):
     return abs_path_to_resource
 
 
-def save_file_list(file_,variable,type_='relative'):
+def save_file_list(
+    fname: str,
+    content: str,
+    fdest: str ='relative'
+    ):
     home = os.path.expanduser("~")
-    if type_ == 'Home':
-        with open('{}/{}'.format(home,file_), 'w') as output:
-            output.write(''.join(variable))
+    if fdest == 'home' or fdest == 'Home':
+        with open(f'{home}/{fname}', 'w') as output:
+            output.write(''.join(content))
     else:
-        with open(get_resource_path(file_), 'w') as output:
-            output.write(''.join(variable))
+        with open(get_resource_path(fname), 'w') as output:
+            output.write(''.join(content))
 
 
     

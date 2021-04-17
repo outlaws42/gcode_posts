@@ -36,7 +36,7 @@ zFeed = 20. # Feedrate for z moves in inches/min
 zDepth = .05 # Step down for each pass
 thickness = .750 # Part thickess
 status = 'Proven' # Proven or Unproven
-outputFile = f"CH_RADIUS-Feed{feed}-{radius}X{materialWidth}-{status}.gcode"
+outputFile = f"CH_RADIUS-Feed{feed}-{radius}RX{materialWidth}W-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF HOLE LOCATION'

@@ -33,7 +33,7 @@ zFeed = 5. # Feedrate for z moves in inches/min
 zDepth = .03 # Step down for each pass
 thickness = .500 # Part thickess
 status = 'Proven' # Proven or Unproven
-outputFile = f"Handle-Feed{feed}-{handleLength}X{handleWidth}-{status}.gcode"
+outputFile = f"Handle-Feed{feed}-{handleLength}LX{handleWidth}W-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF HANDLE'

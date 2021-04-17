@@ -32,7 +32,7 @@ zFeed = 5. # Feedrate for z moves in inches/min
 depth = .750 # Depth of cut
 thickness = .75 # Material Thickness
 status = 'Proven' # Proven or Unproven
-outputFile = f"Hole-Feed{feed}-{HoleDia}X{depth}-{status}.gcode"
+outputFile = f"Hole-Feed{feed}-{HoleDia}DX{depth}Dpth-{status}.gcode"
 
 # Header information description
 x_zero = 'CENTER OF HOLE'
