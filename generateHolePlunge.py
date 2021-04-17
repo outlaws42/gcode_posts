@@ -25,7 +25,7 @@ import os
 from datetime import datetime
 
 # Variable set information
-# Cut information
+# Cut information all dimensions are inch
 toolDia = .250 # Diameter of the tool in inches
 feed = 60. # Feedrate for horizontal moves in inches/min
 zFeed = 5. # Feedrate for z moves in inches/min
