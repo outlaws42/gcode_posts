@@ -4,7 +4,7 @@
 """
 Description:
   Auto Generate G-Code for milling a 
-  rectangle slot (grbl 1.1 control)
+  rectangle pocket (grbl 1.1 control)
 Programmer: Troy Franks
 Email: outlaws42@tutanota.com
 """

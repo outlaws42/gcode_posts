@@ -24,13 +24,13 @@ from datetime import datetime
 
 # Variable set information
 # Cut information all dimensions are in inch
-HoleDia = .375 # Diameter of the hole
+HoleDia = 3.0 # Diameter of the hole
 toolDia = .250 # Diameter of the tool in inches
-rFeed = 15. # Feedrate for radius moves in inches/min
+rFeed = 40. # Feedrate for radius moves in inches/min
 feed = 60. # Feedrate for horizontal moves in inches/min
-zFeed = 5. # Feedrate for z moves in inches/min
+zFeed = 10. # Feedrate for z moves in inches/min
 depth = .750 # Depth of cut
-thickness = .75 # Material Thickness
+thickness = .750 # Material Thickness
 status = 'Proven' # Proven or Unproven
 outputFile = f"Hole-Feed{feed}-{HoleDia}DX{depth}Dpth-{status}.gcode"
 
